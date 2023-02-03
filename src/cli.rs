@@ -46,7 +46,7 @@ pub struct Tag {
     pub random_length: u8,
     /// Tag and value to add, expected in the tag=value
     #[arg(short, long, value_delimiter = ',', value_parser = key_value_parser)]
-    pub tag: Vec<(String, String)>,
+    pub tags: Vec<(String, String)>,
     /// Input file
     pub input_file: Option<PathBuf>,
     /// Output file

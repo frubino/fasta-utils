@@ -21,6 +21,16 @@ pub fn tag_command(options: cli::Tag) -> Result<()> {
                     record.id.push(c);
                 }
         }
+        if !options.tags.is_empty() {
+            if !record.attributes.is_empty() {
+                record.attributes.push(' ');
+            }
+            for tag in &options.tags {
+                record.attributes.push_str(tag.0.as_str());
+                record.attributes.push('=');
+                record.attributes.push_str(tag.1.as_str());
+            }
+        }
         record.to_file(&mut output_file)?;
     }
     
