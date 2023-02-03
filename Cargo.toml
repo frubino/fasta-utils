@@ -12,3 +12,4 @@ bio_rascal = { path = "../bio-rascal", version = "0.1.1" }
 clap_complete = "4.1"
 env_logger = "0.10"
 log = "0.4"
+rand = "0.8"

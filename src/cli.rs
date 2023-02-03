@@ -42,8 +42,8 @@ fn key_value_parser(arg: &str) -> Result<(String, String)> {
 pub struct Tag {
     #[arg(short, long)]
     pub add_random: bool,
-    #[arg(short, long)]
-    pub random_length: Option<u8>,
+    #[arg(short, long, default_value_t = 5)]
+    pub random_length: u8,
     /// Tag and value to add, expected in the tag=value
     #[arg(short, long, value_delimiter = ',', value_parser = key_value_parser)]
     pub tag: Vec<(String, String)>,
