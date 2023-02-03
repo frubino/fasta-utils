@@ -1,0 +1,14 @@
+[package]
+name = "fasta-utils"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.1", features = ["derive"] }
+bio_rascal = { path = "../bio-rascal", version = "0.1.1" }
+clap_complete = "4.1"
+env_logger = "0.10"
+log = "0.4"
