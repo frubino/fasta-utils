@@ -53,7 +53,6 @@ pub struct Tag {
     pub output_file: Option<PathBuf>,
 }
 
-
 /// Generates the completion for the specified shell
 /// 
 /// Slightly modified from example
