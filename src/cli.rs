@@ -1,7 +1,7 @@
-use clap::{Args, Command, Parser, Subcommand};
+use anyhow::{bail, Result};
+use clap::{Args, Command, Parser, Subcommand, ValueEnum};
 use clap_complete::{generate, Generator, Shell};
 use std::path::PathBuf;
-use anyhow::{bail, Result};
 
 /// Fasta Utilities
 #[derive(Parser, Debug)]
@@ -22,6 +22,7 @@ pub struct Cli {
 #[derive(Subcommand, Debug)]
 pub enum Commands {
     Tag(Tag),
+    Filter(Filter),
 }
 
 fn key_value_parser(arg: &str) -> Result<(String, String)> {
@@ -32,7 +33,7 @@ fn key_value_parser(arg: &str) -> Result<(String, String)> {
 }
 
 /// Adds tags or a random identifier to a sequence header
-/// 
+///
 /// The random string is composed of alphanumeric characters
 /// while the tags will added as `tag=value`. The original
 /// header is split at the first `space` character the random
@@ -53,8 +54,35 @@ pub struct Tag {
     pub output_file: Option<PathBuf>,
 }
 
+/// Command used to filter fastq sequences
+#[derive(Args, Debug)]
+pub struct Filter {
+    #[arg(short, long, default_value_t = 0)]
+    pub length: usize,
+    #[arg(short = 'f', long, value_enum, default_value_t = LengthFilter::Ge)]
+    pub length_filter: LengthFilter,
+    /// Input file
+    pub input_file: Option<PathBuf>,
+    /// Output file
+    pub output_file: Option<PathBuf>,
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum, Debug)]
+pub enum LengthFilter {
+    /// Greater than or equal
+    Ge,
+    /// Greater than
+    Gt,
+    /// Less than
+    Lt,
+    /// Less than or equal
+    Le,
+    /// Equal
+    Eq,
+}
+
 /// Generates the completion for the specified shell
-/// 
+///
 /// Slightly modified from example
 pub fn print_completions<G: Generator>(gen: G, cmd: &mut Command) {
     generate(gen, cmd, cmd.get_name().to_string(), &mut std::io::stdout());
