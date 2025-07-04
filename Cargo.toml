@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0"
 clap = { version = "4.1", features = ["derive"] }
-bio_rascal = { path = "../bio-rascal", version = "0.1.1" }
+bio_rascal = { rev = "cebc10e369a46e60eea3d5bbe87e0ca486cbdb54", git = "https://github.com/frubino/bio-rascal" }
 clap_complete = "4.1"
 env_logger = "0.10"
 log = "0.4"
